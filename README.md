@@ -3,3 +3,5 @@
 This is the course project for coursera course offered by Johns Hopkins University
 
 Here you can find a codebook that explains the code's different blocks and run.analysis.R that has the script for the analysis done
+
+A tidy data set with averages of variables per mean and std_div is also uploaded here in both 'txt' and 'csv' formats
