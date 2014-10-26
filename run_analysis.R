@@ -8,8 +8,8 @@ dat <- merge(testX, trainX, all=TRUE)
 
 # 2. Extract only the measurements on mean and sd for each measurement
 features <- fread("features.txt")
-setnames(features, names(features), c("Num", "Name")
-#names(features) <- c("Num", "Name")
+#setnames(features, names(features), c("Num", "Name")
+names(features) <- c("Num", "Name")
 features <- features[grepl("mean\\(\\)|std\\(\\)", Name)]
 dat <- subset(dat, select = features$Num)
 
@@ -20,7 +20,7 @@ names(dat) <- features$Name
 # Reading Subject IDs and merging 
 subjectTrain = read.table("subject_train.txt") 
 subjectTest =  read.table("subject_test.txt")
-subjects <- rbind(subjectTrain, subjectTest) 
+subjects <- rbind(subjectNamesTrain, subjectNamesTest) 
 uSubject<-unique(subjects) 
 
 # 5. Creating a tidy data set with means of variables per activity per subject
@@ -28,10 +28,10 @@ tidyDataSet <- matrix(ncol=length(names(dat)), nrow=length(uSubject))
 rownames(tidyDataSet) <- uSubject 
 colnames(tidyDataSet) <- names(dat) 
 
-for(i in 1:length(uSubject)){ 
-     matched <- which(subjects == uSubject[i]) 
+for(i in uSubject){ 
+     matched <- which(subjects == i) 
      colMean <- colMeans(dat[matched,]) 
      tidyDataSet[i,] <- colMean 
 } 
   
-write.csv(tidyDataSet,file="tidyDataSet.csv") 
+write.table(tidyDataSet,file="tidyDataSet.txt", row.names = FALSE) 
